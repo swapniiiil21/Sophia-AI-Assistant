@@ -1,6 +1,7 @@
 # Sophia AI Assistant
+<img width="1440" alt="Screenshot 2025-06-06 at 4 09 37 PM" src="https://github.com/user-attachments/assets/8b26dba1-489f-4975-b200-b58f6f941ddf" />
 
-![Sophia AI Assistant Demo](./assets/screenshot-2025-06-06-4-09-37-PM.png)
+
 
 ---
 
