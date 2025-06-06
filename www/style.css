@@ -1,0 +1,547 @@
+/* Ensure HTML and Body take full viewport height and width */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+/* body background is now inline in index.html for instant load */
+body {
+    font-family: 'Share Tech Mono', monospace; /* Default robotic font */
+    color: #c0c0c0; /* Subtle white for default text */
+    display: flex; /* Use flexbox to center main-wrapper */
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Important for positioning fixed/absolute children */
+}
+
+/* Three.js Canvas Background */
+#three-bg {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place it behind all other content */
+    display: block; /* Ensure it takes up space */
+}
+
+/* Initial Loading/Activation Overlay (REMOVED FROM HERE - NOW INLINE IN INDEX.HTML) */
+
+.main-wrapper {
+    width: 100vw; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Background Elements: Date/Day Panel Container (REMOVED) */
+.ui-background-elements {
+    /* This container was previously for the date/time panel and is now empty/redundant if no other elements are added here */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Below the main UI content, 3D canvas is -1 */
+    pointer-events: none; /* Ensure these are not clickable */
+    display: none; /* Explicitly hide if no elements are inside */
+}
+
+/* UI Data Panel and related styles (REMOVED as per request) */
+
+.ui-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* SOPHIA Title & Tagline */
+#loader-wrapper {
+    position: relative;
+    width: 380px; /* Increased size */
+    height: 380px;
+    display: flex; /* Make it a flex container to center SOPHIA text */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    margin-bottom: 30px; /* Space above input box */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    z-index: 2; /* Ensure it's above the 3D background */
+}
+
+.sophia-title {
+    z-index: 999;
+    user-select: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4.5em;
+    color: #e0e0e0;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    -webkit-animation: neonDigital 1.5s ease-in-out infinite alternate;
+    -moz-animation: neonDigital 1.5s ease-in-out infinite alternate;
+    animation: neonDigital 1.5s ease-in-out infinite alternate;
+    line-height: 1;
+}
+
+.tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2em;
+    color: #a0a0a0;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
+}
+
+/* Responsive adjustments for loader-wrapper */
+@media (max-width: 1100px) {
+    #loader-wrapper {
+        width: 350px;
+        height: 350px;
+    }
+    .sophia-title {
+        font-size: 4em;
+    }
+}
+@media (max-width: 768px) {
+    #loader-wrapper {
+        width: 280px;
+        height: 280px;
+        margin-bottom: 20px;
+    }
+    .sophia-title {
+        font-size: 3.5em;
+    }
+    .tagline {
+        font-size: 1em;
+    }
+}
+@media (max-width: 480px) {
+    #loader-wrapper {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 15px;
+    }
+    .sophia-title {
+        font-size: 2.5em;
+    }
+    .tagline {
+        font-size: 0.9em;
+    }
+}
+
+
+/* Loader - The Outer Ring - ANIMATIONS FULLY RESTORED */
+#loader {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-top-color: #00ccff;
+    border-bottom-color: #0088ff;
+    border-right-color: #00aaff;
+    border-left-color: #00bbff;
+    box-shadow: 0 0 30px rgba(0, 204, 255, 0.7), inset 0 0 15px rgba(0, 204, 255, 0.3);
+    -webkit-animation: spin 25s linear infinite; /* ANIMATION RESTORED */
+    animation: spin 25s linear infinite; /* ANIMATION RESTORED */
+    background: radial-gradient(circle at center, #0a1f33 0%, #050a10 100%);
+    backface-visibility: hidden;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-color: #0077cc;
+    border-style: dotted;
+    box-shadow: inset 0 0 10px rgba(0, 119, 204, 0.5);
+    -webkit-animation: spin 20s linear infinite reverse; /* ANIMATION RESTORED */
+    animation: spin 20s linear infinite reverse; /* ANIMATION RESTORED */
+    backface-visibility: hidden;
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-color: #0099e6;
+    border-width: 4px;
+    border-style: solid dashed;
+    box-shadow: 0 0 35px rgba(0, 153, 230, 0.8), inset 0 0 20px rgba(0, 153, 230, 0.5);
+    -webkit-animation: spin 45s linear infinite; /* ANIMATION RESTORED */
+    animation: spin 45s linear infinite; /* ANIMATION RESTORED */
+    backface-visibility: hidden;
+}
+
+/* Loader1 - The Inner Rings - ANIMATIONS FULLY RESTORED */
+#loader1:before {
+    content: "";
+    position: absolute;
+    top: 70px;
+    left: 70px;
+    right: 70px;
+    bottom: 70px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-color: #0066b3;
+    border-style: dotted;
+    -webkit-animation: spin 22s linear infinite reverse; /* ANIMATION RESTORED */
+    animation: spin 22s linear infinite reverse; /* ANIMATION RESTORED */
+    backface-visibility: hidden;
+}
+
+#loader1:after {
+    content: "";
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    right: 60px;
+    bottom: 60px;
+    border-radius: 50%;
+    border-color: #00bfff;
+    border-width: 5px;
+    border-style: double dashed solid dotted;
+    box-shadow: 0 0 50px rgba(0, 191, 255, 0.9), inset 0 0 25px rgba(0, 191, 255, 0.6);
+    -webkit-animation: spin 50s linear infinite; /* ANIMATION RESTORED */
+    animation: spin 50s linear infinite; /* ANIMATION RESTORED */
+    backface-visibility: hidden;
+}
+
+/* Keyframe Animations for spin (defined once, used by all loaders) */
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Keyframe Animations for Sophia Title Glow */
+@-webkit-keyframes neonDigital {
+    from {
+        text-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 25px #00eaff, 0 0 45px #00eaff, 0 0 80px #00eaff;
+    }
+    to {
+        text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #00eaff, 0 0 20px #00eaff, 0 0 40px #00eaff;
+    }
+}
+@keyframes neonDigital {
+    from {
+        text-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 25px #00eaff, 0 0 45px #00eaff, 0 0 80px #00eaff;
+    }
+    to {
+        text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #00eaff, 0 0 20px #00eaff, 0 0 40px #00eaff;
+    }
+}
+
+/* Input Box Area */
+.input-area {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1000; /* Keep above the 3D background */
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(10, 10, 20, 0.7); /* Slightly more opaque */
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.25); /* Enhanced glow */
+    backdrop-filter: blur(6px); /* Enhanced blur */
+}
+
+#textInput {
+    background-color: rgba(15, 25, 40, 0.9);
+    border: 2px solid #00aaff;
+    box-shadow: 0 0 18px rgba(0, 170, 255, 0.7), inset 0 0 10px rgba(0, 170, 255, 0.4);
+    border-radius: 10px;
+    color: #e0e0e0;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#textInput:focus-within {
+    box-shadow: 0 0 30px rgba(0, 200, 255, 1), inset 0 0 15px rgba(0, 200, 255, 0.6);
+    border-color: #00eaff;
+    transform: scale(1.01);
+}
+
+.input-field {
+    background-color: transparent;
+    border: none;
+    flex-grow: 1;
+    outline: none;
+    color: #c9e6fa;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1em;
+    padding: 5px 10px;
+    margin-right: 15px;
+}
+
+.input-field::placeholder {
+    color: rgba(201, 230, 250, 0.6);
+}
+
+/* Action Buttons */
+.action-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #00aaff;
+    outline: none;
+    color: #e0e0e0;
+    background: #0d1a26;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.action-btn:before {
+    content: '';
+    background: linear-gradient(45deg, #00bfff, #00eaff, #00aaff, #0077cc, #00bfff);
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    background-size: 200%;
+    z-index: -1;
+    filter: blur(8px);
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    animation: glowingBlue 15s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out, transform 0.3s ease;
+    border-radius: 50%;
+}
+
+.action-btn:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #0d1a26;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.action-btn:hover:before {
+    opacity: 1;
+}
+
+.action-btn:hover {
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.8), 0 0 30px rgba(0, 204, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.action-btn:active {
+    color: #00eaff;
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.6), inset 0 0 5px rgba(0, 204, 255, 0.3);
+}
+
+.action-btn:active:after {
+    background: #050a10;
+}
+
+/* Glowing Blue Animation for Buttons */
+@keyframes glowingBlue {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* SiriWave Section Styling */
+#SiriWave {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#SiriWave .siri-content {
+    background: rgba(10, 20, 30, 0.98);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 204, 255, 0.3);
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.6);
+    text-align: center;
+    width: 100%;
+    max-width: 850px;
+    backdrop-filter: blur(5px);
+    animation: pulseBorder 3s infinite alternate ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+}
+
+/* New Keyframe for pulsing border on SiriWave content */
+@keyframes pulseBorder {
+    0% {
+        border-color: rgba(0, 204, 255, 0.3);
+        box-shadow: 0 0 25px rgba(0, 204, 255, 0.6);
+    }
+    100% {
+        border-color: rgba(0, 204, 255, 0.7);
+        box-shadow: 0 0 40px rgba(0, 204, 255, 0.9);
+    }
+}
+
+#SiriWave .siri-message {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.8em; 
+    color: #e0e0e0;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.8);
+    margin-bottom: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#siri-container {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 204, 255, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 204, 255, 0.2);
+}
+
+/* Customizing Bootstrap offcanvas for a robotic look */
+.offcanvas {
+    background: linear-gradient(to top, #0a0a1a, #1a1a2a);
+    color: #c0c0c0;
+    border-left: 2px solid #00eaff;
+    box-shadow: -5px 0 20px rgba(0, 204, 255, 0.5);
+    font-family: 'Share Tech Mono', monospace;
+    backdrop-filter: blur(10px);
+}
+
+.offcanvas-header {
+    background-color: #0d1a26;
+    border-bottom: 1px solid #00aaff;
+    padding: 15px 20px;
+}
+
+.offcanvas-title {
+    color: #00eaff;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 8px rgba(0, 204, 255, 0.8);
+}
+
+.offcanvas-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Chat Message Styling */
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.user-message {
+    background-color: rgba(0, 100, 150, 0.3);
+    color: #e0f7fa;
+    align-self: flex-end;
+    border: 1px solid rgba(0, 150, 200, 0.5);
+    box-shadow: 0 0 5px rgba(0, 150, 200, 0.3);
+}
+
+.sophia-message {
+    background-color: rgba(50, 50, 60, 0.3);
+    color: #c0c0c0;
+    align-self: flex-start;
+    border: 1px solid rgba(100, 100, 120, 0.5);
+    box-shadow: 0 0 5px rgba(100, 100, 120, 0.3);
+}
+
+/* For the "Sophia is thinking..." message in chat history */
+.sophia-thinking-message {
+    background-color: rgba(30, 40, 50, 0.3);
+    color: #90e0ff;
+    font-style: italic;
+    align-self: flex-start;
+    border: 1px solid rgba(0, 150, 200, 0.2);
+    box-shadow: 0 0 3px rgba(0, 150, 200, 0.1);
+    position: relative;
+    padding-right: 30px;
+}
+
+.sophia-thinking-message .typing-dots {
+    display: inline-block;
+    width: 20px;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.sophia-thinking-message .typing-dots::after {
+    content: '.';
+    animation: typingDots 1s infinite steps(3, end);
+}
+
+@keyframes typingDots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* General utility classes if needed */
+.text-glow {
+    text-shadow: 0 0 8px rgba(0, 204, 255, 0.8);
+}
